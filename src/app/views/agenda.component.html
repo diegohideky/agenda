@@ -1,0 +1,62 @@
+<app-header></app-header>
+
+<div class="wrapper">
+  <h1>Agendas</h1>
+  <hr>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Agendamento</h3>
+        </div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <owl-date-time [(ngModel)]="form.date" [locale]="br" placeHolder="DD/MM/YYYY HH:mm:ss"></owl-date-time>
+            </div>
+          <button (click)="submitForm(form)" class="btn btn-lg btn-primary btn-block">Agendar</button>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="panel panel-default" *ngIf="(editForm | json) != ({} | json)">
+        <div class="panel-heading">
+          <h3 class="panel-title">Correção</h3>
+        </div>
+        <div class="panel-body">
+          <fieldset>
+            <div class="form-group">
+              <owl-date-time [(ngModel)]="editForm.date" [locale]="br" placeHolder="DD/MM/YYYY HH:mm:ss"></owl-date-time>
+            </div>
+            <button (click)="updateAgenda(editForm)" class="btn btn-lg btn-success btn-block">Agendar</button>
+            <button (click)="cancelUpdate()" class="btn btn-lg btn-default btn-block">Cancelar</button>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <table class="table table-responsive">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Usuário</th>
+          <th>Data</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let agenda of agendas">
+          <td>{{agenda.id}}</td>
+          <td>{{agenda.usuario.nome}}</td>
+          <td>{{agenda.date | date: "dd/MM/yyyy hh:mm"}}</td>
+          <td>
+            <button (click)="editAgenda(agenda)" class="btn btn-sm btn-warning">E</button>
+            <button (click)="deleteAgenda(agenda)" class="btn btn-sm btn-danger">X</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
